@@ -6,6 +6,7 @@ const bcrypt = require('bcryptjs');
 
 const app = express();
 const port = 3000;
+
 app.use(cors());
 app.use(bodyParser.json());
  
@@ -15,7 +16,9 @@ const db = mysql.createConnection({
     user: 'sql8702408',
     password: 'mwE5tbtFjU',
     database: 'sql8702408'
-});
+})
+app.use(cors());
+app.use(bodyParser.json());
 
 // Connect to MySQL
 db.connect(err => {
@@ -70,7 +73,9 @@ app.post('/addUser', (req, res) => {
     });
 });
 
-// Route for adding a problem
+
+
+
 app.post('/addProblem', (req, res) => {
     const { title, description, userId } = req.body;
     const status = 'true'; // Explicitly set the status to 'true'
