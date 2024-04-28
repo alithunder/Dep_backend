@@ -11,7 +11,7 @@ app.use(cors());
 app.use(bodyParser.json());
  
 // MySQL client connection
-const db = mysql.createConnection({
+const db = mysql.createPool({
     host: 'sql8.freesqldatabase.com',
     user: 'sql8702408',
     password: 'mwE5tbtFjU',
@@ -20,26 +20,6 @@ const db = mysql.createConnection({
 app.use(cors());
 app.use(bodyParser.json());
 
-// Connect to MySQL
-db.connect(err => {
-    if (err) {
-        console.error('Error connecting to the database:', err);
-        setTimeout(handleDatabaseConnection, 2000); // Try to reconnect every 2 seconds
-    } else {
-        console.log('Connected to the database');
-    }
-});
-
-function handleDatabaseConnection() {
-    db.connect(err => {
-        if (err) {
-            console.error('Failed to reconnect to database:', err);
-            setTimeout(handleDatabaseConnection, 2000); // Keep trying to reconnect
-        } else {
-            console.log('Reconnected to the database successfully.');
-        }
-    });
-}
 app.post('/userLogin', (req, res) => {
     const { username, password } = req.body;
 
@@ -91,7 +71,7 @@ app.post('/addUser', (req, res) => {
 app.post('/addProblem', (req, res) => {
     const { title, description, userId } = req.body;
     const status = 'true'; // Explicitly set the status to 'true'
-    const query = 'INSERT INTO problems (title, description, status) VALUES (?, ?, ?)';
+    const query = 'INSERT INTO problems (title, description, status) VALUES (? ,?, ?, ?)';
 
     db.query(query, [title, description, userId, status], (error, results) => {
         if (error) {
