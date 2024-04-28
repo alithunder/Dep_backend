@@ -71,7 +71,7 @@ app.post('/addUser', (req, res) => {
 app.post('/addProblem', (req, res) => {
     const { title, description, userId } = req.body;
     const status = 'true'; // Explicitly set the status to 'true'
-    const query = 'INSERT INTO problems (UserID , title, description, status) VALUES (? ,?, ?, ?)';
+    const query = 'INSERT INTO problems ( title, description, UserID , status) VALUES (? ,?, ?, ?)';
 
     db.query(query, [title, description, userId, status], (error, results) => {
         if (error) {
