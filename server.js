@@ -13,9 +13,9 @@ app.use(bodyParser.json());
 // MySQL client connection
 const db = mysql.createPool({
     host: 'sql8.freesqldatabase.com',
-    user: 'sql8702408',
-    password: 'mwE5tbtFjU',
-    database: 'sql8702408'
+    user: 'sql8711146',
+    password: 'NzmmaVm8fM',
+    database: 'sql8711146'
 })
 app.use(cors());
 app.use(bodyParser.json());
